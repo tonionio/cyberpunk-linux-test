@@ -31,7 +31,7 @@ cd cyberpunk-linux-test
 ```
 
 ### Option 3: GitHub Pages
-Visit the live demo: `https://github.com/tonionio/cyberpunk-linux-test`
+Visit the live demo: `https://tonionio.github.io/cyberpunk-linux-test/`
 
 ## 🎮 How to Use
 
