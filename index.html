@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEURAL LINK: Linux Essentials Assessment</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Source+Code+Pro:wght@400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0033 50%, #000066 100%);
+            color: #00ff88;
+            font-family: 'Source Code Pro', monospace;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 0, 136, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px solid #00ff88;
+            border-radius: 10px;
+            background: rgba(0, 255, 136, 0.05);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+        
+        .title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5em;
+            font-weight: 900;
+            color: #00ff88;
+            text-shadow: 0 0 10px #00ff88;
+            margin-bottom: 10px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #00ff88; }
+            to { text-shadow: 0 0 20px #00ff88, 0 0 30px #00ff88; }
+        }
+        
+        .subtitle {
+            color: #ff0088;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+        
+        .progress-container {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #1a1a1a;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #00ff88;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #ff0088);
+            width: 0%;
+            transition: width 0.5s ease;
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+        
+        .progress-text {
+            margin-top: 10px;
+            text-align: center;
+            color: #00ff88;
+            font-weight: 600;
+        }
+        
+        .question-card {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #333;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .question-card:hover {
+            border-color: #00ff88;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+        
+        .question-number {
+            color: #ff0088;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        
+        .question-text {
+            color: #ffffff;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .options {
+            display: grid;
+            gap: 12px;
+        }
+        
+        .option {
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #333;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .option:hover {
+            border-color: #00ff88;
+            background: rgba(0, 255, 136, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .option.selected {
+            border-color: #ff0088;
+            background: rgba(255, 0, 136, 0.2);
+            box-shadow: 0 0 15px rgba(255, 0, 136, 0.3);
+        }
+        
+        .option.correct {
+            border-color: #00ff88;
+            background: rgba(0, 255, 136, 0.2);
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+        }
+        
+        .option.incorrect {
+            border-color: #ff4444;
+            background: rgba(255, 68, 68, 0.2);
+            box-shadow: 0 0 15px rgba(255, 68, 68, 0.3);
+        }
+        
+        .option-letter {
+            color: #ff0088;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            width: 25px;
+            height: 25px;
+            border: 2px solid #ff0088;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9em;
+        }
+        
+        .option-text {
+            flex: 1;
+            color: #ffffff;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            background: linear-gradient(45deg, #00ff88, #00cc66);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+        }
+        
+        .btn:hover {
+            background: linear-gradient(45deg, #00cc66, #00ff88);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .btn:disabled {
+            background: #333;
+            color: #666;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+        
+        .btn.secondary {
+            background: linear-gradient(45deg, #666, #888);
+            color: #fff;
+        }
+        
+        .btn.secondary:hover {
+            background: linear-gradient(45deg, #888, #aaa);
+        }
+        
+        .results {
+            text-align: center;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #00ff88;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.4);
+        }
+        
+        .score {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3em;
+            font-weight: 900;
+            color: #00ff88;
+            text-shadow: 0 0 20px #00ff88;
+            margin-bottom: 20px;
+        }
+        
+        .score-message {
+            font-size: 1.5em;
+            color: #ffffff;
+            margin-bottom: 30px;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .terminal-text {
+            font-family: 'Source Code Pro', monospace;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 3px solid #00ff88;
+            margin: 10px 0;
+            color: #00ff88;
+        }
+        
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2em;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="title">NEURAL LINK</div>
+            <div class="subtitle">Linux Essentials Assessment Protocol</div>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">Question 1 of 40</div>
+        </div>
+        
+        <div id="questionContainer" class="question-card">
+            <div class="question-number" id="questionNumber">QUERY 001</div>
+            <div class="question-text" id="questionText"></div>
+            <div class="options" id="optionsContainer"></div>
+        </div>
+        
+        <div class="nav-buttons">
+            <button class="btn secondary" id="prevBtn" onclick="previousQuestion()">← PREVIOUS</button>
+            <button class="btn" id="nextBtn" onclick="nextQuestion()">NEXT →</button>
+            <button class="btn hidden" id="submitBtn" onclick="submitTest()">SUBMIT TEST</button>
+        </div>
+        
+        <div id="results" class="results hidden">
+            <div class="score" id="finalScore">0%</div>
+            <div class="score-message" id="scoreMessage"></div>
+            <div class="nav-buttons">
+                <button class="btn secondary" onclick="reviewAnswers()">REVIEW ANSWERS</button>
+                <button class="btn" onclick="restartTest()">RESTART ASSESSMENT</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Which command outputs the number of lines in a file?",
+                options: ["linecount", "wc -l", "nl", "count"],
+                correct: 1
+            },
+            {
+                question: "Which command shows the IP address configuration?",
+                options: ["ping", "hostname", "ip a", "netname"],
+                correct: 2
+            },
+            {
+                question: "Which file has encrypted user passwords?",
+                options: ["/etc/shadow", "/etc/passwd", "/etc/group", "/root/.shadow"],
+                correct: 0
+            },
+            {
+                question: "What does `chmod +x file.sh` do?",
+                options: ["Makes file read-only", "Gives execute permission", "Hides file", "Deletes file"],
+                correct: 1
+            },
+            {
+                question: "Which key combo sends EOF in a terminal?",
+                options: ["Ctrl+Z", "Ctrl+D", "Ctrl+C", "Ctrl+E"],
+                correct: 1
+            },
+            {
+                question: "Which of the following is NOT an absolute path?",
+                options: ["/etc/passwd", "/home/user", "docs/file.txt", "/var/log"],
+                correct: 2
+            },
+            {
+                question: "Which of these is a valid shell?",
+                options: ["bash", "zsh", "fish", "All of the above"],
+                correct: 3
+            },
+            {
+                question: "Which port is used for SSH?",
+                options: ["21", "22", "80", "443"],
+                correct: 1
+            },
+            {
+                question: "What is the Linux file system root directory?",
+                options: ["/root", "/bin", "/", "/home"],
+                correct: 2
+            },
+            {
+                question: "What is the name of the file that stores user account information?",
+                options: ["/etc/shadow", "/etc/passwd", "/etc/group", "/home/user"],
+                correct: 1
+            },
+            {
+                question: "What is the purpose of the shebang line (`#!/bin/bash`) in a script?",
+                options: ["It comments the first line", "It runs Bash interpreter", "It sets permission", "It ends the script"],
+                correct: 1
+            },
+            {
+                question: "What is the meaning of `rwxr-xr--`?",
+                options: ["Only root can access", "Owner: all, Group: read/exec, Others: read", "Everyone: read/write", "Group has full access"],
+                correct: 1
+            },
+            {
+                question: "How do you switch to the root user temporarily?",
+                options: ["sudo", "su", "admin", "switch"],
+                correct: 0
+            },
+            {
+                question: "Which environment variable lists paths for executable search?",
+                options: ["$SHELL", "$HOME", "$PATH", "$VAR"],
+                correct: 2
+            },
+            {
+                question: "What file logs system events?",
+                options: ["/var/log/messages", "/home/log", "/etc/syslog", "/var/system.log"],
+                correct: 0
+            },
+            {
+                question: "Which file contains group membership info?",
+                options: ["/etc/sudoers", "/etc/shadow", "/etc/group", "/etc/hosts"],
+                correct: 2
+            },
+            {
+                question: "What is the first process started during Linux boot?",
+                options: ["systemd", "bash", "init", "cron"],
+                correct: 0
+            },
+            {
+                question: "What does `ps` do?",
+                options: ["Shuts down system", "Shows running processes", "Pings a network", "Changes password"],
+                correct: 1
+            },
+            {
+                question: "What is the effect of `ls -lh`?",
+                options: ["List in long format with human-readable sizes", "Hide files", "List hidden files", "List home dir only"],
+                correct: 0
+            },
+            {
+                question: "What symbol is used to redirect output to a file, overwriting the file?",
+                options: [">", ">>", "<", "|"],
+                correct: 0
+            },
+            {
+                question: "How do you give ownership of a file to another user?",
+                options: ["chmod", "mv", "chown", "adduser"],
+                correct: 2
+            },
+            {
+                question: "Which command will create an empty file?",
+                options: ["mkdir", "touch", "file", "empty"],
+                correct: 1
+            },
+            {
+                question: "Which command gives you superuser access?",
+                options: ["sudo", "su", "Both A and B", "passwd"],
+                correct: 2
+            },
+            {
+                question: "What command lists all files including hidden ones?",
+                options: ["ls -a", "ls", "dir", "ls -l"],
+                correct: 0
+            },
+            {
+                question: "What command displays who is currently logged in?",
+                options: ["who", "users", "w", "All of the above"],
+                correct: 3
+            },
+            {
+                question: "Which type of file is indicated by 'd' in the first character of its permissions?",
+                options: ["Device", "Directory", "Document", "Data"],
+                correct: 1
+            },
+            {
+                question: "Which user ID is reserved for the root user?",
+                options: ["0", "1", "100", "1000"],
+                correct: 0
+            },
+            {
+                question: "What command is used to change a file's permissions?",
+                options: ["chmod", "chown", "passwd", "mv"],
+                correct: 0
+            },
+            {
+                question: "What does `cd ~` do?",
+                options: ["Goes to root dir", "Goes to /etc", "Goes to user's home dir", "Goes back one level"],
+                correct: 2
+            },
+            {
+                question: "What is the Linux command to search inside files for a string?",
+                options: ["find", "cat", "grep", "search"],
+                correct: 2
+            },
+            {
+                question: "What command shows a list of previous commands?",
+                options: ["history", "ps", "top", "ls -l"],
+                correct: 0
+            },
+            {
+                question: "Which command will show your current working directory?",
+                options: ["whereami", "ls", "pwd", "cd"],
+                correct: 2
+            },
+            {
+                question: "Which command recursively searches for files?",
+                options: ["search", "grep", "find", "locate"],
+                correct: 2
+            },
+            {
+                question: "Which directory contains system configuration files?",
+                options: ["/usr", "/etc", "/var", "/opt"],
+                correct: 1
+            },
+            {
+                question: "What does `>>` do in shell scripting?",
+                options: ["Overwrites a file", "Appends output to a file", "Redirects input", "Pipes to another process"],
+                correct: 1
+            },
+            {
+                question: "What does `man chmod` do?",
+                options: ["Changes file permissions", "Prints manual for chmod", "Creates a chmod alias", "Shows user info"],
+                correct: 1
+            },
+            {
+                question: "Which command compresses files using the gzip format?",
+                options: ["zip", "tar", "gzip", "bzip"],
+                correct: 2
+            },
+            {
+                question: "Which command will safely remove a file named `-danger`?",
+                options: ["rm -danger", "rm ./-danger", "rm *danger", "rm --danger"],
+                correct: 1
+            },
+            {
+                question: "What does the command `tar -czf archive.tar.gz folder/` do?",
+                options: ["Creates zipped archive", "Deletes folder", "Moves folder", "Compresses only text files"],
+                correct: 0
+            },
+            {
+                question: "Which command shows the current shell?",
+                options: ["sh", "echo $SHELL", "ps", "whoami"],
+                correct: 1
+            }
+        ];
+
+        let currentQuestion = 0;
+        let answers = new Array(questions.length).fill(null);
+        let testCompleted = false;
+        let reviewMode = false;
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+        }
+
+        function displayQuestion() {
+            const question = questions[currentQuestion];
+            document.getElementById('questionNumber').textContent = `QUERY ${String(currentQuestion + 1).padStart(3, '0')}`;
+            document.getElementById('questionText').innerHTML = `<div class="terminal-text">${question.question}</div>`;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                
+                // Show selection in normal mode
+                if (!reviewMode && answers[currentQuestion] === index) {
+                    optionDiv.classList.add('selected');
+                }
+                
+                // Show correct/incorrect in review mode
+                if (reviewMode) {
+                    if (index === questions[currentQuestion].correct) {
+                        optionDiv.classList.add('correct');
+                    } else if (answers[currentQuestion] === index && index !== questions[currentQuestion].correct) {
+                        optionDiv.classList.add('incorrect');
+                    }
+                }
+                
+                optionDiv.innerHTML = `
+                    <div class="option-letter">${String.fromCharCode(65 + index)}</div>
+                    <div class="option-text">${option}</div>
+                `;
+                
+                if (!reviewMode) {
+                    optionDiv.onclick = () => selectOption(index);
+                }
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            updateNavButtons();
+            updateProgress();
+        }
+
+        function selectOption(index) {
+            if (testCompleted) return;
+            
+            answers[currentQuestion] = index;
+            
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, i) => {
+                option.classList.remove('selected');
+                if (i === index) {
+                    option.classList.add('selected');
+                }
+            });
+        }
+
+        function updateNavButtons() {
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            
+            if (reviewMode) {
+                // In review mode, show different buttons
+                if (currentQuestion === questions.length - 1) {
+                    document.getElementById('nextBtn').classList.add('hidden');
+                    document.getElementById('submitBtn').classList.remove('hidden');
+                    document.getElementById('submitBtn').textContent = 'BACK TO RESULTS';
+                    document.getElementById('submitBtn').onclick = backToResults;
+                } else {
+                    document.getElementById('nextBtn').classList.remove('hidden');
+                    document.getElementById('submitBtn').classList.add('hidden');
+                    document.getElementById('nextBtn').textContent = 'NEXT →';
+                }
+            } else {
+                // Normal test mode
+                if (currentQuestion === questions.length - 1) {
+                    document.getElementById('nextBtn').classList.add('hidden');
+                    document.getElementById('submitBtn').classList.remove('hidden');
+                    document.getElementById('submitBtn').textContent = 'SUBMIT TEST';
+                    document.getElementById('submitBtn').onclick = submitTest;
+                } else {
+                    document.getElementById('nextBtn').classList.remove('hidden');
+                    document.getElementById('submitBtn').classList.add('hidden');
+                }
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                displayQuestion();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                displayQuestion();
+            }
+        }
+
+        function submitTest() {
+            testCompleted = true;
+            let score = 0;
+            
+            answers.forEach((answer, index) => {
+                if (answer === questions[index].correct) {
+                    score++;
+                }
+            });
+            
+            const percentage = Math.round((score / questions.length) * 100);
+            
+            document.getElementById('questionContainer').classList.add('hidden');
+            document.querySelector('.nav-buttons').classList.add('hidden');
+            document.getElementById('results').classList.remove('hidden');
+            
+            document.getElementById('finalScore').textContent = `${percentage}%`;
+            
+            let message = '';
+            if (percentage >= 90) {
+                message = 'ELITE HACKER STATUS ACHIEVED! Your neural pathways are fully optimized.';
+            } else if (percentage >= 80) {
+                message = 'ADVANCED USER DETECTED! You have strong command-line prowess.';
+            } else if (percentage >= 70) {
+                message = 'SYSTEM ACCESS GRANTED! Good fundamental knowledge base.';
+            } else if (percentage >= 60) {
+                message = 'BASIC ACCESS LEVEL! Continue upgrading your skillset.';
+            } else {
+                message = 'ACCESS DENIED! Time to jack back into the training matrix.';
+            }
+            
+            document.getElementById('scoreMessage').textContent = message;
+        }
+
+        function reviewAnswers() {
+            reviewMode = true;
+            currentQuestion = 0;
+            
+            document.getElementById('questionContainer').classList.remove('hidden');
+            document.querySelector('.nav-buttons').classList.remove('hidden');
+            document.getElementById('results').classList.add('hidden');
+            
+            displayQuestion();
+        }
+
+        function backToResults() {
+            reviewMode = false;
+            
+            document.getElementById('questionContainer').classList.add('hidden');
+            document.querySelector('.nav-buttons').classList.add('hidden');
+            document.getElementById('results').classList.remove('hidden');
+        }
+
+        function showCorrectAnswers() {
+            currentQuestion = 0;
+            displayQuestion();
+            
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, index) => {
+                option.onclick = null;
+                
+                if (index === questions[currentQuestion].correct) {
+                    option.classList.add('correct');
+                } else if (answers[currentQuestion] === index && index !== questions[currentQuestion].correct) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            document.getElementById('questionContainer').classList.remove('hidden');
+            document.querySelector('.nav-buttons').classList.remove('hidden');
+            document.getElementById('results').classList.add('hidden');
+            
+            document.getElementById('nextBtn').textContent = 'NEXT →';
+            document.getElementById('submitBtn').classList.add('hidden');
+        }
+
+        function restartTest() {
+            currentQuestion = 0;
+            answers = new Array(questions.length).fill(null);
+            testCompleted = false;
+            reviewMode = false;
+            
+            document.getElementById('questionContainer').classList.remove('hidden');
+            document.querySelector('.nav-buttons').classList.remove('hidden');
+            document.getElementById('results').classList.add('hidden');
+            
+            displayQuestion();
+        }
+
+        // Initialize the test
+        displayQuestion();
+    </script>
+</body>
+</html>
