@@ -7,6 +7,19 @@ A cyberpunk-themed interactive test for Linux fundamentals with neon aesthetics 
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
+---
+
+<div align="center">
+
+## 🎮 [**🚀 LIVE DEMO**](https://tonionio.github.io/cyberpunk-linux-test/)
+
+*Experience the cyberpunk aesthetic while mastering Linux fundamentals*  
+**No installation required - runs directly in your browser**
+
+</div>
+
+---
+
 ## ⚡ Features
 
 - **🌆 Cyberpunk Aesthetic**: Neon green/pink color scheme with glow effects
@@ -19,23 +32,22 @@ A cyberpunk-themed interactive test for Linux fundamentals with neon aesthetics 
 
 ## 🚀 Quick Start
 
-### Option 1: Direct Download
-1. Download `index.html`
-2. Open in any modern web browser
-3. Start jacking into the Linux knowledge matrix!
+### Option 1: Live Demo (Recommended)
+**[Try it instantly →](https://tonionio.github.io/cyberpunk-linux-test/)**
 
-### Option 2: Clone Repository
+### Option 2: Local Setup
 ```bash
-git clone https://github.com/tonionio/cyberpunk-linux-test
+git clone https://github.com/tonionio/cyberpunk-linux-test.git
 cd cyberpunk-linux-test
+# Open index.html in your browser
 ```
 
-### Option 3: GitHub Pages
-Visit the live demo: `https://tonionio.github.io/cyberpunk-linux-test/`
+### Option 3: Direct Download
+Download `index.html` and open in any modern web browser 
 
 ## 🎮 How to Use
 
-1. **Start Assessment**: Click through the 40 Linux essentials questions
+1. **Start Assessment**: Click through 40 Linux essentials questions
 2. **Navigate**: Use Previous/Next buttons to move between questions
 3. **Select Answers**: Click on your choice (A, B, C, or D)
 4. **Submit**: Complete all questions and submit for scoring
@@ -119,6 +131,13 @@ Perfect for:
 - **Study groups** and team learning
 - **Instructors** looking for engaging assessment tools
 
+## 🌟 Share the Knowledge
+
+Love the project? Help spread the cyberpunk Linux vibes:
+- ⭐ **Star this repository**
+- 🔗 **Share with friends and study groups**
+- 🐦 **Tweet about it** with #CyberpunkLinux
+
 ## 🐛 Bug Reports
 
 Found a bug? Please create an issue with:
@@ -150,6 +169,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
+<div align="center">
+
 **Ready to jack into the matrix?** Start your Linux journey with style! 🌃
 
 *Built with ❤️ and lots of caffeine by a fellow Linux enthusiast*
+
+</div>
